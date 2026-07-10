@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rate Report — Sofia M. · RateForge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#eef1ef; --ink:#16211f; --card:#ffffff;
+  --ledger:#0c6b52; --ledger-soft:#e2efe9; --copper:#b0782e;
+  --line:#d7ddd9; --muted:#5f6f6a; --mono:"IBM Plex Mono",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Inter",system-ui,sans-serif;background:var(--paper);color:var(--ink)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+/* nav — identical to homepage */
+nav{position:sticky;top:0;z-index:50;background:rgba(238,241,239,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-family:"Space Grotesk";font-weight:700;font-size:1.15rem;letter-spacing:-.02em;text-decoration:none;color:var(--ink)}
+.logo em{font-style:normal;color:var(--ledger)}
+.nav-links{display:flex;gap:26px;align-items:center}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:.88rem;font-weight:500}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{background:var(--ledger);color:#fff!important;padding:8px 16px;border-radius:8px;font-weight:600}
+@media(max-width:680px){.nav-links a:not(.nav-cta){display:none}}
+
+/* toggle (demo) */
+.toggle{display:flex;gap:8px;justify-content:center;margin:32px 0 4px;flex-wrap:wrap}
+.toggle button{padding:8px 18px;border:1px solid var(--line);background:#fff;border-radius:20px;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer;color:var(--muted)}
+.toggle button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* report card */
+.report{max-width:640px;margin:20px auto 64px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:40px;box-shadow:0 2px 16px rgba(22,33,31,.05)}
+@media(max-width:560px){.report{padding:26px 20px}}
+.who{text-align:center;margin-bottom:36px}
+.who .ref{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;color:var(--muted);margin-bottom:10px}
+.who h1{font-family:"Space Grotesk";font-size:1.45rem;letter-spacing:-.02em}
+.who p{color:var(--muted);font-size:.88rem;margin-top:4px}
+.rate-box{text-align:center;background:var(--ledger-soft);border-radius:14px;padding:28px;margin-bottom:36px}
+.rate-box .l{font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ledger);margin-bottom:8px}
+.rate-box .r{font-family:var(--mono);font-size:2.6rem;font-weight:600;color:var(--ledger)}
+.rate-box .r small{font-size:1rem;color:var(--muted);font-weight:500}
+.rate-box .d{font-size:.85rem;color:var(--muted);margin-top:6px}
+h2{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+.sec{margin-bottom:36px}
+.line{display:flex;justify-content:space-between;font-size:.9rem;padding:11px 0;border-bottom:1px solid var(--line)}
+.line .v{font-family:var(--mono);font-weight:600;color:var(--ink)}
+.line.total{font-weight:600;border-bottom:none;padding-top:14px}
+.line.total .v{color:var(--ledger);font-size:1.05rem}
+.note{background:var(--paper);border-radius:12px;padding:20px;font-size:.9rem;line-height:1.7;color:#3c4a46}
+.fo{display:none}
+body.freelancer .fo{display:block}
+.private{border:1.5px dashed var(--copper);background:#faf6ef;border-radius:12px;padding:20px;font-size:.9rem;line-height:1.7}
+.private .pl{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--copper);margin-bottom:8px}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:520px){.tiers{grid-template-columns:1fr}}
+.tier{border:1px solid var(--line);border-radius:12px;padding:16px;text-align:center}
+.tier.on{border:2px solid var(--ledger);background:var(--ledger-soft)}
+.tier .t{font-size:.7rem;font-weight:600;text-transform:uppercase;color:var(--muted)}
+.tier .p{font-family:var(--mono);font-size:1.25rem;font-weight:600;margin-top:4px}
+.sharebar{display:flex;gap:10px;margin-top:8px}
+.sharebar button{flex:1;padding:12px;border-radius:9px;font:inherit;font-weight:600;font-size:.88rem;cursor:pointer;border:none}
+.sharebar .copy{background:var(--ledger);color:#fff}
+.sharebar .pdf{background:#fff;border:1.5px solid var(--line);color:var(--ink)}
+.verified{text-align:center;font-family:var(--mono);font-size:.68rem;color:var(--muted);margin-top:28px}
+
+/* footer — identical to homepage */
+footer{border-top:1px solid var(--line);padding:36px 0;margin-top:40px}
+.foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.foot p, .foot a{font-size:.8rem;color:var(--muted);text-decoration:none}
+.foot a:hover{color:var(--ink)}
+.foot .links{display:flex;gap:20px}
+
+/* back to top */
+#top-btn{position:fixed;bottom:22px;right:22px;width:44px;height:44px;border-radius:50%;background:var(--ink);color:#fff;border:none;font-size:1.1rem;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .2s;z-index:60}
+#top-btn.show{opacity:1;pointer-events:auto}
+</style>
+</head>
+<body class="client">
+
+<nav>
+  <div class="wrap nav-in">
+    <a class="logo" href="index.html">Rate<em>Forge</em></a>
+    <div class="nav-links">
+      <a href="index.html#how">How it works</a>
+      <a href="index.html#why">Why rates fail</a>
+      <a href="index.html#faq">FAQ</a>
+      <a class="nav-cta" href="index.html#calculator">Calculate my rate</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <!-- demo toggle: in production the view is decided by ?key= -->
+  <div class="toggle">
+    <button id="bc" class="on" onclick="setView('client')">Client view — /r/abc123</button>
+    <button id="bf" onclick="setView('freelancer')">Freelancer view — ?key=x9f2k</button>
+  </div>
+
+  <div class="report">
+    <div class="who">
+      <div class="ref">RATE REPORT · JULY 2026</div>
+      <h1>Sofia M. — Brand Designer</h1>
+      <p>Mid-level · Portugal · Prepared for Atlas Coffee Co.</p>
+    </div>
+
+    <div class="rate-box">
+      <div class="l">Rate</div>
+      <div class="r">€52<small>/hour</small></div>
+      <div class="d">≈ €430/day · aligned with the Portuguese market for mid-level brand design</div>
+    </div>
+
+    <div class="sec fo">
+      <h2>Your pricing options — client doesn't see this</h2>
+      <div class="tiers">
+        <div class="tier"><div class="t">Floor</div><div class="p">€45/h</div></div>
+        <div class="tier on"><div class="t">Quoted</div><div class="p">€52/h</div></div>
+        <div class="tier"><div class="t">Premium</div><div class="p">€58/h</div></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>Where the rate goes</h2>
+      <div class="line"><span>Taxes & social security</span><span class="v">28%</span></div>
+      <div class="line"><span>Software, workspace & equipment</span><span class="v">11%</span></div>
+      <div class="line"><span>Unbillable work — admin, communication, revisions</span><span class="v">35%</span></div>
+    </div>
+
+    <div class="sec">
+      <h2>This project — itemized</h2>
+      <div class="line"><span>Logo concepts, 4 directions</span><span class="v">16h</span></div>
+      <div class="line"><span>Refinement + 2 revision rounds</span><span class="v">10h</span></div>
+      <div class="line"><span>Exports — 6 sizes × 2 res × 2 formats</span><span class="v">8h</span></div>
+      <div class="line"><span>Brand sheet & handoff</span><span class="v">8h</span></div>
+      <div class="line total"><span>42 hours</span><span class="v">€2,180</span></div>
+    </div>
+
+    <div class="sec">
+      <h2>About this quote</h2>
+      <div class="note">
+        This quote is based on current market data for brand design in Portugal. Every deliverable is itemized — no padding, no surprises. Includes two revision rounds; further revisions billed hourly.
+      </div>
+    </div>
+
+    <div class="sec fo">
+      <div class="private">
+        <div class="pl">🔒 Negotiation tip — private</div>
+        If they push on price, reduce scope (2 logo directions instead of 4) — never the rate. Anchor on rework risk: "a rushed rebrand costs more to fix than to do right."
+      </div>
+    </div>
+
+    <div class="sec fo">
+      <h2>Share with your client</h2>
+      <div class="sharebar">
+        <button class="copy" onclick="alert('Copied: rateforge.com/r/abc123')">Copy client link</button>
+        <button class="pdf">Download PDF</button>
+      </div>
+    </div>
+
+    <div class="verified">✓ Verified by RateForge · based on 34 market data points · 07 Jul 2026</div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap foot">
+    <p>© 2026 RateForge — part of the DocForge family</p>
+    <div class="links">
+      <a href="https://thedocforge.com" target="_blank" rel="noopener">DocForge</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<button id="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+<script>
+function setView(v){
+  document.body.className = v;
+  document.getElementById('bc').className = v==='client'?'on':'';
+  document.getElementById('bf').className = v==='freelancer'?'on':'';
+}
+window.addEventListener('scroll',()=>{
+  document.getElementById('top-btn').classList.toggle('show', window.scrollY>300);
+});
+</script>
+</body>
+</html>
