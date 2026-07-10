@@ -4,6 +4,7 @@ import "./globals.css";
 import "./rateforge.css";
 import { Toaster } from "@/components/ui/toaster";
 import { SITE_URL } from "@/lib/site";
+import { Analytics } from "@vercel/analytics/next";
 import NextTopLoader from "nextjs-toploader";
 
 const spaceGrotesk = Space_Grotesk({
@@ -180,6 +181,7 @@ export default function RootLayout({
         />
         {children}
         <Toaster />
+        <Analytics />
       </body>
     </html>
   );
