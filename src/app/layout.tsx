@@ -4,6 +4,7 @@ import "./globals.css";
 import "./rateforge.css";
 import { Toaster } from "@/components/ui/toaster";
 import { SITE_URL } from "@/lib/site";
+import { Analytics } from "@vercel/analytics/next";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -168,6 +169,7 @@ export default function RootLayout({
         />
         {children}
         <Toaster />
+        <Analytics />
       </body>
     </html>
   );
