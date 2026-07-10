@@ -4,6 +4,7 @@ import "./globals.css";
 import "./rateforge.css";
 import { Toaster } from "@/components/ui/toaster";
 import { SITE_URL } from "@/lib/site";
+import NextTopLoader from "nextjs-toploader";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -162,6 +163,17 @@ export default function RootLayout({
         className={`${spaceGrotesk.variable} ${inter.variable} ${ibmPlexMono.variable} antialiased`}
         style={{ fontFamily: "var(--font-inter), system-ui, sans-serif" }}
       >
+        <NextTopLoader
+          color="#0c6b52"
+          showSpinner={false}
+          height={3}
+          crawl={true}
+          crawlSpeed={200}
+          initialPosition={0.08}
+          easing="ease"
+          speed={300}
+          shadow="0 0 10px #0c6b52,0 0 5px #0c6b52"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}

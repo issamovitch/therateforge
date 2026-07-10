@@ -955,6 +955,21 @@ section.rf-section {
   padding: 3px 8px;
 }
 
+/* ── loading spinner ──────────────────────────────────────── */
+.rf-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--ledger-soft);
+  border-top-color: var(--ledger);
+  border-radius: 50%;
+  animation: rf-spin 0.7s linear infinite;
+}
+@keyframes rf-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* ── /guides index + article pages ────────────────────────── */
 .rf-guides-hero {
   text-align: center;
