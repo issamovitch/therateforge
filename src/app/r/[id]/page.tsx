@@ -140,7 +140,8 @@ export default async function ReportPage(props: PageProps) {
   return (
     <>
       <Nav />
-      <main className={`rf-wrap${isFreelancer ? " rf-freelancer" : ""}`}>
+      <main className={`${isFreelancer ? " rf-freelancer" : ""}`}>
+        <div className="rf-wrap">
         <article className="rf-report">
           <div className="rf-who">
             <div className="ref">RATE REPORT · {monthLabel.toUpperCase()}</div>
@@ -276,6 +277,7 @@ export default async function ReportPage(props: PageProps) {
             {isFreelancer && <> · confidence: {report.confidence}</>} · {monthLabel}
           </div>
         </article>
+        </div>
       </main>
       <Footer />
       <BackToTop />
