@@ -149,6 +149,18 @@ export function Calculator() {
     setErrorMsg("");
     setData(null);
 
+    // On mobile (narrow screens), gently scroll the receipt panel into view so
+    // the user sees the "Forging…" loading state. On desktop the receipt is
+    // already visible beside the form, so we skip the scroll.
+    if (typeof window !== "undefined" && window.innerWidth < 880) {
+      requestAnimationFrame(() => {
+        const receipt = document.querySelector(".rf-receipt");
+        if (receipt) {
+          receipt.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    }
+
     try {
       const res = await fetch("/api/rate", {
         method: "POST",
@@ -327,7 +339,7 @@ export function Calculator() {
             </p>
           )}
           {status === "loading" && (
-            <p className="rf-empty">Analyzing market rates…</p>
+            <p className="rf-empty">Forging your report… this takes up to a minute ⏳</p>
           )}
           {status === "error" && (
             <>

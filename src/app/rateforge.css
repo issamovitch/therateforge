@@ -144,7 +144,6 @@ section.rf-section {
   font-weight: 700;
   font-size: clamp(2rem, 5.5vw, 3.3rem);
   letter-spacing: -0.03em;
-  line-height: 1.08;
   max-width: 18ch;
   margin: 0 auto 18px;
 }
@@ -1452,6 +1451,68 @@ section.rf-section {
 @media (max-width: 520px) {
   .rf-form .rf-row > div[aria-hidden="true"] {
     display: none;
+  }
+}
+
+/* ── mobile horizontal padding (breathing room) ────────────── */
+/* Placed at the end so it overrides all base rules for narrow screens.
+   Generous padding so nothing sits flush against the screen edges. */
+@media (max-width: 680px) {
+  .rf-wrap {
+    padding: 70px 28px 0px !important;
+  }
+  .rf-nav-in {
+    padding: 0 24px;
+  }
+  .rf-form {
+    padding: 24px;
+  }
+  .rf-receipt-body {
+    padding: 20px;
+  }
+  .rf-why {
+    margin: 0 16px;
+    padding: 40px 24px;
+  }
+  .rf-report {
+    padding: 28px 24px;
+  }
+  .rf-guide-article {
+    padding: 40px 24px 64px;
+  }
+  .rf-guides-hero {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .rf-legal {
+    padding: 48px 24px 64px;
+  }
+  .rf-adslot {
+    padding: 0 24px;
+  }
+  .rf-step {
+    padding: 22px;
+  }
+  .rf-faq details {
+    padding: 16px 20px;
+  }
+  .rf-footer {
+    padding: 32px 0;
+  }
+  .rf-foot {
+    padding: 0 28px;
+  }
+}
+/* Even more generous on very narrow phones (≤390px) */
+@media (max-width: 390px) {
+  .rf-wrap {
+    padding: 0 24px;
+  }
+  .rf-form {
+    padding: 20px;
+  }
+  .rf-step {
+    padding: 18px;
   }
 }
 

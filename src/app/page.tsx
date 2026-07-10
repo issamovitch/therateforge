@@ -111,7 +111,7 @@ export default function Home() {
       <main>
         <section className="rf-hero rf-wrap" aria-label="Introduction">
           <p className="rf-kicker">Free · AI-powered · No signup</p>
-          <h1>
+          <h1 className="leading-[1.6] md:leading-normal">
             Know what your work is worth.{" "}
             <span>Prove it to your client.</span>
         </h1>
