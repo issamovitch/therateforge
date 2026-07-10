@@ -253,6 +253,60 @@ export function validateReportMath(report: RateReport): {
 }
 
 /**
+ * Strip URLs, markdown links, and citation tags from a prose string so the
+ * report never shows raw links to a client. Source names are kept in plain
+ * language (e.g. "according to Glassdoor"); only the URL/link syntax is removed.
+ *
+ * Handles: [text](url), bare http(s)://…, ([source](url)), and trailing
+ * citation tags like (source.com.br) or (utm_source=…).
+ */
+export function sanitizeProse(text: string): string {
+  if (!text) return text;
+  let out = text;
+  // 1. Markdown links [text](url) → keep "text", drop the URL and parens.
+  //    Handles [text](url "title") and [text](url 'title') too.
+  out = out.replace(/\[([^\]]*)\]\([^)]*\)/g, "$1");
+  // 2. Parenthesised bare URL: (https://…) or (www.…) → drop entirely.
+  out = out.replace(/\s*\(\s*(?:https?:\/\/|www\.)[^\s)]+\s*\)/g, "");
+  // 3. Bare URLs anywhere — replace with nothing (no gap).
+  out = out.replace(/(?:https?:\/\/|www\.)[^\s)]+/g, "");
+  // 4. Citation tags like (source.com) or (source.com.br) — drop if they look
+  //    like a domain-only reference. Keep parens that contain real words.
+  out = out.replace(/\s*\([a-z0-9.-]+\.[a-z]{2,}(?:[/?][^\s)]*)?\)/gi, "");
+  // 5. Stray utm/ tracking params that leaked as standalone text.
+  out = out.replace(/\s*utm_[a-z_]+=[^\s)]+/gi, "");
+  // 6. Clean up: empty parens, double spaces, space-before-punctuation.
+  out = out.replace(/\(\s*\)/g, "");
+  out = out.replace(/\s{2,}/g, " ");
+  out = out.replace(/\s+([.,;:!?])/g, "$1");
+  out = out.trim();
+  return out;
+}
+
+/**
+ * Sanitize all prose fields in a report (market_context, client_note,
+ * negotiation_tip, and line_items[].task) so no URLs or markdown links
+ * reach the client-facing report. Returns a new object.
+ */
+export function sanitizeReportProse(report: RateReport): RateReport {
+  return {
+    ...report,
+    market_context: sanitizeProse(report.market_context),
+    client_note: sanitizeProse(report.client_note),
+    negotiation_tip: sanitizeProse(report.negotiation_tip),
+    project: report.project
+      ? {
+          ...report.project,
+          line_items: report.project.line_items.map((li) => ({
+            ...li,
+            task: sanitizeProse(li.task),
+          })),
+        }
+      : report.project,
+  };
+}
+
+/**
  * The client-facing firm price for a project = sum of line-item prices
  * (= hours × hourly_recommended, rounded per line then summed). Falls back to
  * `hourly_recommended × estimated_hours` for reports generated before the

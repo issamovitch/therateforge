@@ -162,8 +162,8 @@ RULES (non-negotiable)
 3. breakdown.taxes_pct = country-specific freelancer tax + social burden in ${inputs.country}.
 4. breakdown.overhead_pct = derived from the freelancer's costs text if given, else country-typical default for ${inputs.country}. When team_size > 1, ADD coordination overhead on top.
 5. breakdown.unbillable_pct = share of time lost to admin/communication/revisions (25–40%; higher for larger teams).
-6. market_context: cite LOCAL rates from the search above for the given experience level. If a goal was given, state whether the local market reaches it. Be honest about data limitations.
-7. client_note: 3–4 professional sentences addressed TO THE CLIENT. No hedging, no first-person AI voice.
+6. market_context: cite LOCAL rates from the search above for the given experience level. If a goal was given, state whether the local market reaches it. Be honest about data limitations. NEVER include URLs, markdown links, or citation tags — mention sources in plain language only (e.g. "according to Glassdoor"), never as links.
+7. client_note: 3–4 professional sentences addressed TO THE CLIENT. No hedging, no first-person AI voice. NEVER include URLs, markdown links, or citation tags — mention sources in plain language only, never as links.
 8. negotiation_tip: one concrete, situation-specific tactic. PRIVATE to the freelancer.
 9. NEVER inflate rates beyond local market evidence.
 10. PROJECT RULE (CRITICAL): When a project description IS provided, you MUST return project as a non-null object with 2–8 line_items (never null). Parse the free-text description into concrete deliverables with realistic hour estimates. Example: "4 logos, 6 sizes, 2 resolutions, 2 formats" → line items like "Logo concepts, 4 directions" (16h), "Refinement + 2 revision rounds" (10h), "Exports — 6 sizes × 2 res × 2 formats" (8h), "Brand sheet & handoff" (8h). Only set project to null when NO project description was given.

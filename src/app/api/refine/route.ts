@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { and, eq } from "drizzle-orm";
 import { getDb, reports } from "@/lib/turso";
-import { rateReportSchema, reconcileProject, validateReportMath } from "@/lib/types";
+import { rateReportSchema, reconcileProject, validateReportMath, sanitizeReportProse } from "@/lib/types";
 import type { RateInputs } from "@/lib/types";
 import { currencyForCountryName } from "@/lib/countries";
 import { refineRateReport } from "@/lib/openai";
@@ -97,6 +97,9 @@ export async function POST(req: Request) {
 
   // Deterministic fix: reconcile so all arithmetic is consistent by construction.
   next = reconcileProject(recheck.data);
+
+  // Sanitize prose: strip URLs/markdown links/citation tags (same as /api/rate).
+  next = sanitizeReportProse(next);
 
   // Currency override: keep the country's local currency (same as /api/rate).
   const localCurrency = currencyForCountryName(inputs.country);

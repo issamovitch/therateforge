@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { customAlphabet } from "nanoid";
 import { getDb, reports } from "@/lib/turso";
-import { rateReportSchema, EXPERIENCE_VALUES, reconcileProject, validateReportMath } from "@/lib/types";
+import { rateReportSchema, EXPERIENCE_VALUES, reconcileProject, validateReportMath, sanitizeReportProse } from "@/lib/types";
 import type { RateInputs } from "@/lib/types";
 import { currencyForCountryName } from "@/lib/countries";
 import { generateRateReport } from "@/lib/openai";
@@ -113,6 +113,11 @@ export async function POST(req: Request) {
   // Deterministic fix: always reconcile so line-item prices, estimated_hours,
   // price_min/max, and daily rate are internally consistent by construction.
   report = reconcileProject(recheck.data);
+
+  // Sanitize prose: strip any URLs, markdown links, or citation tags the model
+  // may have injected into market_context, client_note, negotiation_tip, or
+  // line_items[].task. The report must never show raw links to a client.
+  report = sanitizeReportProse(report);
 
   // Currency override: if the model returned USD for a non-USA country, swap
   // to the country's local currency. The model sometimes defaults to USD for

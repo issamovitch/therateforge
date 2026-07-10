@@ -219,8 +219,8 @@ RULES (non-negotiable)
 3. breakdown.taxes_pct = country-specific freelancer tax + social security burden for self-employed workers in ${inputs.country}.
 4. breakdown.overhead_pct = derived from the freelancer's costs text if given, else a country-typical default for ${inputs.country}. When team_size > 1, ADD coordination overhead on top.
 5. breakdown.unbillable_pct = share of working time lost to admin, communication, revisions, prospecting (typically 25–40%; higher for larger teams).
-6. market_context: 2–3 sentences citing LOCAL market rates for the given experience level in this skill+country. If a goal was given, state whether the local market reaches it. Be honest about data limitations.
-7. client_note: 3–4 professional sentences addressed TO THE CLIENT, justifying the rate. No hedging, no first-person AI voice, no "as an AI". Confident and factual.
+6. market_context: 2–3 sentences citing LOCAL market rates for the given experience level in this skill+country. If a goal was given, state whether the local market reaches it. Be honest about data limitations. NEVER include URLs, markdown links, or citation tags — mention sources in plain language only (e.g. "according to Glassdoor"), never as links.
+7. client_note: 3–4 professional sentences addressed TO THE CLIENT, justifying the rate. No hedging, no first-person AI voice, no "as an AI". Confident and factual. NEVER include URLs, markdown links, or citation tags — mention sources in plain language only (e.g. "according to Glassdoor"), never as clickable links or bracketed references like ([source.com](https://...)).
 8. negotiation_tip: one concrete, situation-specific tactic. This is PRIVATE to the freelancer.
 9. NEVER inflate rates beyond local market evidence, even if the inputs (high goal, expensive costs) suggest it. Anchor every number to what the local market actually pays.
 10. If no project description was given, set project to null.
